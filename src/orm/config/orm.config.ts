@@ -1,6 +1,8 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { OrmCell } from '../model/cell';
+import { OrmBlock } from '../model/block';
+import { OrmBoard } from '../model/board';
 
 export default registerAs(
   'orm.config',
@@ -11,7 +13,8 @@ export default registerAs(
     username: 'gkincses',
     password: '',
     database: 'sudoku',
-    entities: [OrmCell],
+    entities: [OrmBoard, OrmBlock, OrmCell],
+    logging: true,
     synchronize: true, // Disable this always in production
   }),
 );

@@ -4,6 +4,8 @@ import {
   Controller,
   Get,
   Header,
+  HttpCode,
+  Param,
   Post,
 } from '@nestjs/common';
 import { BoardService } from './board.service';
@@ -13,21 +15,22 @@ import { FillCellDto } from '../dto/fill-cell.dto';
 export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
-  @Get()
-  @Header('Cache-Control', 'no-cache') // Set header using @Header decorator
+  @Get(':id')
+  @Header('Cache-Control', 'no-cache')
   @Header('Content-Type', 'application/json')
-  async getBoard() {
-    return this.boardService.getBoard().then((board) => {
-      console.log(`Current board: ${JSON.stringify(board)}`);
+  async getBoard(@Param('id') boardIx: number) {
+    return this.boardService.getBoard(boardIx).then((board) => {
+      console.log(`Current board - ${boardIx}: ${JSON.stringify(board)}`);
       return board;
     });
   }
 
-  @Post()
-  async fill(@Body() fillCell: FillCellDto) {
+  @Post(':id')
+  @HttpCode(201)
+  async fill(@Param('id') boardIx: number, @Body() fillCell: FillCellDto) {
     console.log(`fill cell ${JSON.stringify(fillCell)}`);
     return this.boardService
-      .fill(fillCell.blockIx, fillCell.cellIx, fillCell.value)
+      .fill(boardIx, fillCell.blockIx, fillCell.cellIx, fillCell.value)
       .then(
         () => {
           return { message: 'cell value accepted' };

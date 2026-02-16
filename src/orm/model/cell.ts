@@ -1,18 +1,25 @@
-import { Column, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { OrmBlock } from './block';
 
 @Entity('cell')
 export class OrmCell {
-  constructor(blockIx: number, cellIx: number, value: string) {
-    this.blockIx = blockIx;
+  constructor(block: OrmBlock, cellIx: number, value: string) {
+    this.ormBlock = block;
     this.cellIx = cellIx;
     this.setValue(value);
     this.orig = true;
   }
 
-  @PrimaryColumn('int4')
-  blockIx: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @PrimaryColumn('int4')
+  @Column('int4', { nullable: false })
   cellIx: number;
 
   @Column('text', { nullable: false })
@@ -23,6 +30,9 @@ export class OrmCell {
 
   @UpdateDateColumn({ nullable: false })
   updatedAt: Date;
+
+  @ManyToOne(() => OrmBlock, (block) => block.ormCells)
+  ormBlock: OrmBlock;
 
   setValue(value: string) {
     this.value = value;

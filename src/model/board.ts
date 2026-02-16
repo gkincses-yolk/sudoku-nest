@@ -1,5 +1,8 @@
 import { Block } from './block';
 
 export class Board {
-  constructor(readonly blocks: Block[]) {}
+  constructor(
+    readonly ix: number,
+    readonly blocks: Block[],
+  ) {}
 }

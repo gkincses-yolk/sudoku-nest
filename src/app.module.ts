@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import ormConfig from './orm/config/orm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrmCell } from './orm/model/cell';
+import { OrmBlock } from './orm/model/block';
+import { OrmBoard } from './orm/model/board';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { OrmCell } from './orm/model/cell';
     TypeOrmModule.forRootAsync({
       useFactory: ormConfig,
     }),
-    TypeOrmModule.forFeature([OrmCell]),
+    TypeOrmModule.forFeature([OrmCell, OrmBlock, OrmBoard]),
   ],
   controllers: [BoardController],
   providers: [BoardService],
