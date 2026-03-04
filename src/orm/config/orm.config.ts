@@ -10,7 +10,7 @@ export default registerAs(
     type: 'postgres',
     host: 'localhost',
     port: 5432,
-    username: 'gkincses',
+    username: 'gabor',
     password: '',
     database: 'sudoku',
     entities: [OrmBoard, OrmBlock, OrmCell],

@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   ManyToOne,
+  ObjectLiteral,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -9,7 +10,7 @@ import { OrmCell } from './cell';
 import { OrmBoard } from './board';
 
 @Entity('block')
-export class OrmBlock {
+export class OrmBlock implements ObjectLiteral {
   constructor(board: OrmBoard, blockIx: number) {
     this.ormBoard = board;
     this.blockIx = blockIx;

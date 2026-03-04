@@ -1,7 +1,13 @@
 export class Cell {
   constructor(
-    readonly ix: number,
-    readonly value: string,
-    readonly orig: boolean,
+    private readonly ix: number,
+    private value: string,
+    private readonly orig: boolean = true,
   ) {}
+  getValue(): string {
+    return this.value;
+  }
+  setValue(value: string): void {
+    this.value = value;
+  }
 }
